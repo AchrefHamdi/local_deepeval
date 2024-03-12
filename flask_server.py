@@ -6,7 +6,7 @@ import os
 app = Flask(__name__)
 
 # Replace with your path
-json_file_path = "C:/Training Exercices/Trace_Deepeval_llamaindex/Exercices/temp_test_run_data.json"
+json_file_path = "./Trace_Deepeval_llamaindex/Exercices/temp_test_run_data.json"
 
 @app.route('/info', methods=['POST'])
 def get_json_content():
@@ -38,6 +38,6 @@ def test():
 
     return render_template('dashboard.html', output_data=output_data)
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=8085)
 
     
