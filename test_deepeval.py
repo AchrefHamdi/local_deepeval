@@ -8,7 +8,7 @@ import deepeval
  
 import os
 print(deepeval.tracing.__file__)
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = ""
  
 client = OpenAI()
  
