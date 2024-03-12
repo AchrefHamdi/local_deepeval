@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Dashboard</h1>
+        <div id="output">
+            <p><strong>Completion Token:</strong> <span id="completion-token">{{ output_data.completion_token }}</span></p>
+            <p><strong>Conversation ID:</strong> {{ output_data.conversation_id }}</p>
+            <p><strong>Input:</strong> {{ output_data.input }}</p>
+            <p><strong>Model:</strong> {{ output_data.model }}</p>
+            <p><strong>Output:</strong> {{ output_data.output }}</p>
+            <p><strong>Prompt Token:</strong> {{ output_data.prompt_token }}</p>
+            <p><strong>Token Usage:</strong> {{ output_data.token_usage }}</p>
+        </div>
+    </div>
+    <!-- <script src="{{ url_for('static', filename='js/script.js') }}"></script> -->
+</body>
+</html>
