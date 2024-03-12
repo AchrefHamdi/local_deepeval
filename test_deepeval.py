@@ -8,7 +8,7 @@ import deepeval
  
 import os
 print(deepeval.tracing.__file__)
-os.environ["OPENAI_API_KEY"] = ""
+os.environ["OPENAI_API_KEY"] = "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"
  
 client = OpenAI()
  
@@ -91,65 +91,70 @@ class Chatbot:
     
  
  
-chatbot = Chatbot()
+#chatbot = Chatbot()
 
 
 #1- run without chatbot as argument for deepeval
 #2- add chatbot as argument & save before run flask
-def test_hallucination():
-    context = [ "Paul Graham is a computer scientist, entrepreneur, venture capitalist, and author." ]
- 
-    input = "Who is Paul Graham?"
-    results = chatbot.llm(input)
-    #print("################", chatbot.completion_tokens)
-   
- 
-    metric = HallucinationMetric(threshold=0.8)
-    test_case = LLMTestCase(
-        input=input,
-        actual_output=chatbot.query(user_input=input),
-        # token_cost = chatbot.token_cost,
-        # token_usage = chatbot.total_tokens,
-        context=context,
-    )
- 
-    # return {
-       
-    #     "model":chatbot.model,
-    #     "input":input,
-    #     "output":test_case.actual_output,
-    #     "conversation_id":chatbot.chatId,
-    #     "completion_token" : chatbot.completion_tokens,
-    #     "prompt_token" : chatbot.prompt_tokens,
-    #     "token_usage" : chatbot.total_tokens,
-    #     # "Embedding":chatbot.get_embedding(input),
-    #     "retriever":chatbot.retriever(input),
-    #     "search":chatbot.search(input),
-    #     "format":chatbot.format(input,chatbot.retrieval_nodes),
-    #     "query":chatbot.query(input)
-    # }
-    # At the end of your LLM call
+#chatbot = None
+
+def test_hallucination(chatbot=None):
+    #global chatbot
+    if chatbot is None:
+        chatbot = Chatbot()
+        context = [ "Paul Graham is a computer scientist, entrepreneur, venture capitalist, and author." ]
     
-    deepeval.track(
-        event_name="",
-        model=chatbot.model,
-        input=input,
-        output=test_case.actual_output,
-        distinct_id="",
-        conversation_id=chatbot.chatId,
-        retrieval_context=["..."],
-        completion_time=8.23,
-        #completion_token = chatbot.completion_tokens,
-        #prompt_token = chatbot.prompt_tokens,
-        token_usage = chatbot.total_tokens,
-        additional_data={"example": "example"},
-        fail_silently=True,
-       
-        run_on_background_thread=True
-    )
-    #print("------------",deepeval.track)
-    print("done !")
-    assert_test(test_case, [metric])
+        input = "Who is Paul Graham?"
+        results = chatbot.llm(input)
+        #print("################", chatbot.completion_tokens)
+    
+    
+        metric = HallucinationMetric(threshold=0.8)
+        test_case = LLMTestCase(
+            input=input,
+            actual_output=chatbot.query(user_input=input),
+            # token_cost = chatbot.token_cost,
+            # token_usage = chatbot.total_tokens,
+            context=context,
+        )
+    
+        # return {
+        
+        #     "model":chatbot.model,
+        #     "input":input,
+        #     "output":test_case.actual_output,
+        #     "conversation_id":chatbot.chatId,
+        #     "completion_token" : chatbot.completion_tokens,
+        #     "prompt_token" : chatbot.prompt_tokens,
+        #     "token_usage" : chatbot.total_tokens,
+        #     # "Embedding":chatbot.get_embedding(input),
+        #     "retriever":chatbot.retriever(input),
+        #     "search":chatbot.search(input),
+        #     "format":chatbot.format(input,chatbot.retrieval_nodes),
+        #     "query":chatbot.query(input)
+        # }
+        # At the end of your LLM call
+        
+        deepeval.track(
+            event_name="",
+            model=chatbot.model,
+            input=input,
+            output=test_case.actual_output,
+            distinct_id="",
+            conversation_id=chatbot.chatId,
+            retrieval_context=["..."],
+            completion_time=8.23,
+            #completion_token = chatbot.completion_tokens,
+            #prompt_token = chatbot.prompt_tokens,
+            token_usage = chatbot.total_tokens,
+            additional_data={"example": "example"},
+            fail_silently=True,
+        
+            run_on_background_thread=True
+        )
+        #print("------------",deepeval.track)
+        print("done !")
+        assert_test(test_case, [metric])
 
  
  
